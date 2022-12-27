@@ -9,6 +9,7 @@ const customersController = require("./controllers/customersController");
 const scheduleController = require("./controllers/schedulesController");
 const kanbanController = require("./controllers/kanbansController");
 const lineController = require("./controllers/linesController");
+const userController = require("./controllers/usersController");
 
 const app = express();
 app.use(cors());
@@ -24,3 +25,4 @@ app.use("/customers", customersController);
 app.use("/schedules", scheduleController);
 app.use("/kanbans", kanbanController);
 app.use("/lines", lineController);
+app.use("/user", userController);

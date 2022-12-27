@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '.';
 import { userProfileData } from '../data/dummy';
@@ -8,6 +9,26 @@ import avatar from '../data/avatar.jpg';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+  const navigate = useNavigate();
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const userT = localStorage.getItem('user');
+    setUser(JSON.parse(userT));
+  }, []);
+
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
+  const handleUpdate = () => {
+    navigate('/update');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+    window.location.reload();
+  };
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -28,9 +49,9 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Michael Roberts </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  Administrator   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> info@shop.com </p>
+          <p className="font-semibold text-xl dark:text-gray-200"> {user.Name} </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">  {user.Role}   </p>
+          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {user.Email} </p>
         </div>
       </div>
       <div>
@@ -40,6 +61,7 @@ const UserProfile = () => {
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
               className=" text-xl rounded-lg p-3 hover:bg-light-gray"
+              onClick={handleUpdate}
             >
               {item.icon}
             </button>
@@ -52,13 +74,22 @@ const UserProfile = () => {
         ))}
       </div>
       <div className="mt-5">
-        <Button
-          color="white"
-          bgColor={currentColor}
-          text="Logout"
-          borderRadius="10px"
-          width="full"
-        />
+        <button
+          type="submit"
+          className="text-xl w-full p-3 hover:drop-shadow-xl hover:bg-"
+          style={{ backgroundColor: currentColor, color: 'white', borderRadius: '10px' }}
+          onClick={handleLogout}
+        >Logout
+        </button>
+      </div>
+      <div className="mt-5">
+        <button
+          type="submit"
+          className="text-xl w-full p-3 hover:drop-shadow-xl hover:bg-46a049"
+          style={{ backgroundColor: currentColor, color: 'white', borderRadius: '10px' }}
+          onClick={handleRegister}
+        >Register New User
+        </button>
       </div>
     </div>
 
