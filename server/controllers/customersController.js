@@ -9,4 +9,10 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(400).send(err));
 });
 
+router.delete("/:id", (req, res) => {
+  Customer.findByIdAndDelete(req.params.id)
+    .then((customer) => res.send(customer))
+    .catch((err) => res.status(400).send(err));
+});
+
 module.exports = router;

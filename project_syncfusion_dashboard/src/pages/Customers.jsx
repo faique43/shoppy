@@ -29,10 +29,9 @@ const Customers = () => {
         // eslint-disable-next-line no-console
         console.error(error);
       });
-  }, []);
+  }, [customersData]);
 
   const selectionsettings = { persistSelection: true };
-  const toolbarOptions = ['Delete'];
   const editing = { allowDeleting: true, allowEditing: true };
 
   return (
@@ -44,7 +43,6 @@ const Customers = () => {
         allowPaging
         pageSettings={{ pageCount: 5 }}
         selectionSettings={selectionsettings}
-        toolbar={toolbarOptions}
         editSettings={editing}
         allowSorting
       >
